@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .btn-dot {
+        color: white;
+        height: 40px;
+        width: 40px;
+        border-radius: 50%;
+        margin: 5px;
+        padding: 5px;
+        display: inline-block;
+    }
+</style>
+
+<body onload="javascript:loadV1()">
+    <center>
+        <div id="LEDV1">
+            &nbsp;</div>
+        <br>
+        <hr>
+        <br>
+        <a href="javascript:clkVal(0)" class="btn-dot" style="background-color: black;">ปิด</a>
+        <a href="javascript:clkVal(1)" class="btn-dot" style="background-color: red;">แดง</a>
+        <a href="javascript:clkVal(2)" class="btn-dot" style="background-color: green;">เขียว</a>
+        <a href="javascript:clkVal(3)" class="btn-dot" style="background-color: blue;">น้ำเงิน</a>
+
+    </center>
+
+</body>
+
+<script>
+    function clkVal(val) {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onload = function () {
+            console.log(this.responseText);
+            loadV1();
+        };
+        xhttp.open("GET", "http://std.csit.sci.tsu.ac.th/652021073/espapi/log/V1/" + val, true);
+        xhttp.send();
+
+    }
+    function loadV1() {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onload = function () {
+            // console.log(this.responseText);
+            var objV1 = JSON.parse(this.responseText);
+            // console.log(objV1.v_integer);
+            if (objV1.v_integer == 0)
+                document.getElementById("LEDV1").setAttribute("style", "height: 200px;width: 200px;background-color: black;border-radius: 50%;display: inline-block;");
+            else if (objV1.v_integer == 1) document.getElementById("LEDV1").setAttribute("style", "height: 200px;width: 200px;background-color: red;border-radius: 50%;display: inline-block;box-shadow: 10px 10px 10px 10px red;");
+            else if (objV1.v_integer == 2) document.getElementById("LEDV1").setAttribute("style", "height: 200px;width: 200px;background-color: green;border-radius: 50%;display: inline-block;box-shadow: 10px 10px 10px 10px green;");
+            else if (objV1.v_integer == 3) document.getElementById("LEDV1").setAttribute("style", "height: 200px;width: 200px;background-color: blue;border-radius: 50%;display: inline-block;box-shadow: 10px 10px 10px 10px blue;");
+
+        };
+        xhttp.open("GET", "http://std.csit.sci.tsu.ac.th/652021073/espapi/loglast/V1", true);
+        xhttp.send();
+
+    }
+    setInterval(loadV1, 1000);
+
+
+
+</script>
+
+</html>
