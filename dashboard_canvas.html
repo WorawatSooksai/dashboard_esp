@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body onload="getV1()">
+    <center style="margin-top: 15%;">
+        <canvas id="LED_V1">
+            Your browser does not support the HTML canvas tag.</canvas>
+
+            <a href="javascript:setV1(0)" style="margin-right: 10px;">ปิดไฟ</a>
+            <a href="javascript:setV1(1)" style="margin-right: 10px;">แดง</a>
+            <a href="javascript:setV1(2)" style="margin-right: 10px;">เขียว</a>
+            <a href="javascript:setV1(3)" style="margin-right: 10px;">น้ำเงิน</a>
+    </center>    
+    <script>
+        let V1 = 0;
+        setInterval(getV1, 1000);
+        function setV1(val) {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    console.log(xhttp.responseText);
+                }
+            };
+            xhttp.open("GET", "http://std.csit.sci.tsu.ac.th/652021071/espapi/log/V1/"+val, true);
+            xhttp.send();
+            getV1();
+            
+        }
+        function getV1() {            
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    // Typical action to be performed when the document is ready:
+                    var myArr = JSON.parse(xhttp.responseText)                    
+                    V1 = myArr.v_integer;                
+            if (V1 == 0) {
+                var canvas = document.getElementById('LED_V1');
+                var context = canvas.getContext('2d');
+                var centerX = canvas.width / 2;
+                var centerY = canvas.height / 2;
+                var radius = 70;
+
+                context.beginPath();
+                context.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
+                context.fillStyle = 'white';
+                context.fill();
+                context.lineWidth = 5;
+                context.strokeStyle = '#003300';
+                context.stroke();
+
+            } else if (V1 ==1) {
+                var canvas = document.getElementById('LED_V1');
+                var context = canvas.getContext('2d');
+                var centerX = canvas.width / 2;
+                var centerY = canvas.height / 2;
+                var radius = 70;
+
+                context.beginPath();
+                context.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
+                context.fillStyle = 'red';
+                context.fill();
+                context.lineWidth = 5;
+                context.strokeStyle = '#003300';
+                context.stroke();
+
+            } else if (V1 == 2) {
+                var canvas = document.getElementById('LED_V1');
+                var context = canvas.getContext('2d');
+                var centerX = canvas.width / 2;
+                var centerY = canvas.height / 2;
+                var radius = 70;
+
+                context.beginPath();
+                context.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
+                context.fillStyle = 'green';
+                context.fill();
+                context.lineWidth = 5;
+                context.strokeStyle = '#003300';
+                context.stroke();
+
+            } else if (V1 == 3) {
+                var canvas = document.getElementById('LED_V1');
+                var context = canvas.getContext('2d');
+                var centerX = canvas.width / 2;
+                var centerY = canvas.height / 2;
+                var radius = 70;
+
+                context.beginPath();
+                context.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
+                context.fillStyle = 'blue';
+                context.fill();
+                context.lineWidth = 5;
+                context.strokeStyle = '#003300';
+                context.stroke();
+
+            }
+                }
+            };
+            xhttp.open("GET", "http://std.csit.sci.tsu.ac.th/652021071/espapi/loglast/V1", true);
+            xhttp.send();
+            
+        }
+    </script>
+</body>
+
+</body>
+
+</html>
